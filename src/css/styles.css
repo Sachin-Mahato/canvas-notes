@@ -2,20 +2,53 @@
 @import url(./reset.css);
 @import url(./variables.css);
 
-
 body {
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
     font-weight: normal;
     font-style: normal;
     margin: 0;
-}
-#canvas {
-    display: block;
-    border: 2px solid red;
-    box-sizing: border-box;
+    background-color: #f9fafb;
+    /* Soft light gray background for the body */
 }
 
-.navbar-icon {
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    background-color: #1E293B;
+    /* Dark navy blue background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Subtle shadow for depth */
+}
+
+.circle {
+    width: 40px;
+    height: 40px;
+    border: 2px solid white;
+    /* White border */
+    border-radius: 50%;
+    /* Makes the element circular */
+    background-color: transparent;
+    /* No fill inside the circle */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Smooth hover animation */
+}
+
+.circle:hover {
+    transform: scale(1.2);
+    /* Slight zoom on hover */
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.6);
+    /* Glow effect */
+}
+
+#canvas {
+    display: block;
+    /* border: 4px solid maroon; */
+    cursor: crosshair;
 }
