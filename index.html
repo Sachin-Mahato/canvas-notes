@@ -1,17 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Circle Navbar</title>
   <link rel="stylesheet" href="./src/css/styles.css">
 </head>
+
 <body>
+
   <nav class="navbar">
-    <div class="circle"></div>
+    <!-- Circle svg -->
+    <div class="nav-item" title="Circle">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+        <circle cx="12" cy="12" r="9"></circle>
+      </svg>
+    </div>
+<!-- Line svg -->
+    <div class="nav-item" title="Line">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="white" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="icon">
+        <line x1="4" y1="12" x2="20" y2="12"></line>
+      </svg>
+    </div>
+    <!-- Arrow svg -->
+    <div class="nav-item" title="Arrow">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="white" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="icon">
+        <path d="M5 12h14"></path>
+        <path d="M12 5l7 7-7 7"></path>
+      </svg>
+    </div>
+<!-- Text svg -->
+    <div class="nav-item" title="Text">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+        <path d="M4 6h16"></path> <!-- Top horizontal line -->
+        <path d="M4 12h10"></path> <!-- Middle shorter line -->
+        <path d="M4 18h8"></path> <!-- Bottom shortest line -->
+      </svg>
+    </div>
+    <!-- Zoom  in svg -->
+    <div class="nav-item" title="Zoom In">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+        <circle cx="11" cy="11" r="8"></circle> <!-- Magnifying glass circle -->
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line> <!-- Handle -->
+        <line x1="11" y1="8" x2="11" y2="14"></line> <!-- Vertical line for "+" -->
+        <line x1="8" y1="11" x2="14" y2="11"></line> <!-- Horizontal line for "+" -->
+      </svg>
+    </div>
+    <!-- Zoom out svg -->
+    <div class="nav-item" title="Zoom Out">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+        <circle cx="11" cy="11" r="8"></circle> <!-- Magnifying glass circle -->
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line> <!-- Handle -->
+        <line x1="8" y1="11" x2="14" y2="11"></line> <!-- Horizontal line for "-" -->
+      </svg>
+    </div>
+<!-- Delete svg -->
+    <div class="nav-item" title="Delete">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+        <path d="M3 6h18"></path> <!-- Lid of the bin -->
+        <path d="M7 6v14a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V6"></path> <!-- Body of the bin -->
+        <line x1="10" y1="6" x2="10" y2="20"></line> <!-- Left side of the bin -->
+        <line x1="14" y1="6" x2="14" y2="20"></line> <!-- Right side of the bin -->
+        <path d="M10 4v-2h4v2"></path> <!-- Recycling arrows icon in the lid (optional) -->
+      </svg>
+    </div>
+
   </nav>
   <canvas id="canvas"></canvas>
 </body>
-<script src="./src/js/app.js"></script>
-</html>
+<script src="./src/js/app.js" type="module"></script>
 
+</html>

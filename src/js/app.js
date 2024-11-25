@@ -2,83 +2,77 @@
  * @type {HTMLCanvasElement}
  */
 
-/**
- * @type {HTMLCanvasElement}
- */
-
 var canvas = document.body.querySelector("#canvas");
-canvas.height = innerHeight;
 canvas.width = innerWidth;
-var navbar = document.body.querySelector(".navbar");
+canvas.height = innerHeight;
 var ctx = canvas.getContext("2d");
-var isDragging = false;
+var navbar = document.body.querySelector(".navbar");
+var mode = null;
 var circles = [];
-var mode = "";
-var draggedCircle = null;
+var isDraggable = false;
+var draggingCircle = null;
+var radius = 70;
 var scale = 1;
 
-// Handle mousedown events
-canvas.addEventListener("mousedown", (event) => {
+canvas.addEventListener("pointerdown", (evt) => {
     const rect = canvas.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / scale;
-    const y = (event.clientY - rect.top) / scale;
-
-    if (mode === "circle") {
-        // Add a new circle where the user clicks
-        circles.push({ x, y, radius: 60 });
-        drawCanvas();
-
-        // Reset mode to avoid accidental multiple circles
+    const x = (evt.clientX - rect.left) / scale;
+    const y = (evt.clientY - rect.top) / scale;
+    if (mode == "draw") {
+        circles.push({x,y,radius: radius})
+        drawCircle();
         mode = "";
-    } else if (mode === "") {
-        // Check if the user clicked on an existing circle
-        draggedCircle = circles.find((circle) => Math.hypot(circle.x - x, circle.y - y) <= circle.radius);
-
-        if (draggedCircle) {
-            isDragging = true;
+    } else if (mode == "") {
+        // Find the circle the cursor is closest to, by calculating distance from cursor to circle center
+        draggingCircle = circles.find((circle) => Math.hypot(circle.x - x, circle.y - y) <= circle.radius)
+        if (draggingCircle) {
+            console.log("draggingCircle", draggingCircle)
+            isDraggable = true;
+        } else {
+            console.log("no circles under the cursor")
         }
     }
-});
+})
 
-// Handle mousemove events
-canvas.addEventListener("mousemove", (event) => {
-    if (draggedCircle && isDragging) {
+canvas.addEventListener("pointermove", (evt) => {
+    if (isDraggable && draggingCircle) {
         const rect = canvas.getBoundingClientRect();
-        const x = (event.clientX - rect.left) / scale;
-        const y = (event.clientY - rect.top) / scale;
+        const x = (evt.clientX - rect.left) / scale;
+        const y = (evt.clientY - rect.top) / scale;
 
-        // Update the dragged circle's position
-        draggedCircle.x = x;
-        draggedCircle.y = y;
-
-        // Redraw the canvas
-        drawCanvas();
+        draggingCircle.x = x;
+        draggingCircle.y = y;
+        drawCircle();
     }
-});
+})
 
-// Handle mouseup events
-canvas.addEventListener("mouseup", () => {
-    isDragging = false;
-    draggedCircle = null;
-});
+canvas.addEventListener("pointerup", () => {
+    isDraggable = false;
+    draggingCircle = null;
+})
 
-// Draw all elements on the canvas
-function drawCanvas() {
-    // Clear the canvas
+canvas.addEventListener("pointerleave", () => {
+    isDraggable = false;
+    draggingCircle = null;
+})
+
+navbar.addEventListener("click", () => {
+    mode = "draw"
+})
+
+/**
+ * Clears the canvas and redraws all circles stored in the circles array.
+ * @function drawCircle
+ */
+function drawCircle() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Draw all circles
+    
+    ctx.strokeStyle = "#1b1b1b";
+    ctx.lineWidth = 4;
+    
     circles.forEach((circle) => {
         ctx.beginPath();
         ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
-        ctx.strokeStyle = "red";
-        ctx.lineWidth = 4;
         ctx.stroke();
-        ctx.closePath();
     });
 }
-
-// Handle navbar clicks to enable circle drawing
-navbar.addEventListener("click", () => {
-    mode = "circle"; // Enable circle drawing mode
-});
