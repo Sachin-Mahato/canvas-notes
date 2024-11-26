@@ -58,8 +58,10 @@ canvas.addEventListener("pointerleave", () => {
 
 canvas.addEventListener("click", (evt) => {
   if (mode == "delete") {
-    const ctx = canvas.getContext("2d");
     ctx.clearRect(0,0,canvas.width, canvas.height)
+    // remember the coordinate if you draw the a circle it draw 2 at the same so that's why you've to delete the co-ordinates as well.
+    circles.pop();
+    mode = "";
   }
 })
 
