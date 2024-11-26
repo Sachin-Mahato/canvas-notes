@@ -6,7 +6,7 @@ var canvas = document.body.querySelector("#canvas");
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 var ctx = canvas.getContext("2d");
-var navbar = document.body.querySelector(".navbar");
+var navbar = document.body.querySelectorAll(".navbar");
 var mode = null;
 var circles = [];
 var isDraggable = false;
@@ -26,7 +26,6 @@ canvas.addEventListener("pointerdown", (evt) => {
         // Find the circle the cursor is closest to, by calculating distance from cursor to circle center
         draggingCircle = circles.find((circle) => Math.hypot(circle.x - x, circle.y - y) <= circle.radius)
         if (draggingCircle) {
-            console.log("draggingCircle", draggingCircle)
             isDraggable = true;
         } else {
             console.log("no circles under the cursor")
@@ -55,10 +54,31 @@ canvas.addEventListener("pointerleave", () => {
     isDraggable = false;
     draggingCircle = null;
 })
+// delete draw canvas
 
-navbar.addEventListener("click", () => {
-    mode = "draw"
+canvas.addEventListener("click", (evt) => {
+  if (mode == "delete") {
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0,0,canvas.width, canvas.height)
+  }
 })
+
+var modeMap = {
+    "circle": "draw",
+    "line": "line",
+    "arrow": "arrow",
+    "text": "text",
+    "zoom-in": "zoom-in",
+    "zoom-out": "zoom-out",
+    "delete": "delete"
+};
+
+navbar.forEach((navItems) => {
+    navItems.addEventListener("click", (evt) => {
+        evt.stopPropagation();
+        mode = modeMap[evt.target.dataset.id] || "";
+    });
+});
 
 /**
  * Clears the canvas and redraws all circles stored in the circles array.
